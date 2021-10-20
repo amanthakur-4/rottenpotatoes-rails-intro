@@ -1,9 +1,8 @@
 class Movie < ActiveRecord::Base
   
-  attr_accessor :all_ratings, :ratings_to_show
+  attr_accessor :all_ratings
   
   @@all_ratings = ['G', 'PG', 'PG-13', 'R'] 
-  @ratings_to_show = []
   
   def self.get_all_ratings()
     return @@all_ratings
