@@ -1,13 +1,20 @@
 class MoviesController < ApplicationController
 
   def show
-    id = params[:id] # retrieve movie ID from URI route
+    id = params[:id] # retrieve movie ID fro m URI route
     @movie = Movie.find(id) # look up movie by unique ID
     # will render app/views/movies/show.<extension> by default
   end
 
   def index
-    @movies = Movie.all
+    if params[:ratings] == nil
+      @movies = Movie.all
+      @ratings_to_show = []
+    else
+      @ratings_to_show = params[:rating].keys
+      @movies = Movie.with_ratings(@ratings_to_show)
+    end
+    @all_ratings = Movie.get_all_ratings()
   end
 
   def new
