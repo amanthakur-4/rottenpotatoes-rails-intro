@@ -8,7 +8,13 @@ class Movie < ActiveRecord::Base
     return @@all_ratings
   end
   
-  def self.with_ratings(ratings_list)
-    Movie.where(rating: ratings_list)
+  def self.with_ratings(ratings_list, sort_by)
+    if sort_by == nil
+      return Movie.where(rating: ratings_list)
+    elsif sort_by == "title"
+      return Movie.where(rating: ratings_list).order(:title)
+    else
+      return Movie.where(rating: ratings_list).order(:release_date)
+    end
   end
 end
